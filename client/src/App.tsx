@@ -44,7 +44,7 @@ const appRouter = createBrowserRouter([
 
 const App = () => {
   return (
-    <main>
+    <main className="">
       <Suspense fallback={<Loader/>}>
         <RouterProvider router={appRouter} />
       </Suspense>

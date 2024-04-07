@@ -39,10 +39,10 @@ const Navbar = () => {
             {
               showProfile &&
               <div className='absolute min-w-[200px] bg-white border border-gray-400 shadow-xl dark:bg-slate-900 top-14 right-0 rounded-lg'>
-                <ul className='flex dark:*:text-white items-start flex-col p-3 gap-2 '>
-                  <Link className='flex items-center gap-1 text-xl group dark:hover:bg-slate-800 bg-blue-50 hover:bg-blue-100 w-full p-2 rounded-2xl border justify-center' to="/profile"> <CgProfile className='text-2xl group-hover:-translate-x-[2px] transition-all delay-100 ease-in-out' /> Profile</Link>
-                  <button className='flex items-center gap-1 text-xl group dark:hover:bg-slate-800 bg-blue-50 hover:bg-blue-100 w-full p-2 rounded-2xl border justify-center'> <MdOutlineDarkMode className='text-2xl group-hover:-translate-x-[2px] transition-all delay-100 ease-in-out'/> Theme</button>
-                  <button className='flex items-center gap-1 text-xl group dark:hover:bg-slate-800 bg-blue-50 hover:bg-blue-100 w-full p-2 rounded-2xl border justify-center'> <HiOutlineLogout className='text-2xl group-hover:-translate-x-[2px] transition-all delay-100 ease-in-out' /> Logout
+                <ul className='flex dark:*:text-white *:text-black items-start flex-col p-3 gap-2 '>
+                  <Link className='flex items-center gap-1 text-xl group dark:bg-slate-950 dark:hover:bg-slate-800  bg-blue-50  hover:bg-blue-100 w-full p-2 rounded-2xl border justify-center' to="/profile"> <CgProfile className='text-2xl group-hover:-translate-x-[2px] transition-all delay-100 ease-in-out' /> Profile</Link>
+                  <button className='flex items-center gap-1 text-xl group dark:bg-slate-950 dark:hover:bg-slate-800 bg-blue-50 hover:bg-blue-100 w-full p-2 rounded-2xl border justify-center'> <MdOutlineDarkMode className='text-2xl group-hover:-translate-x-[2px] transition-all delay-100 ease-in-out'/> Theme</button>
+                  <button className='flex items-center gap-1 text-xl group dark:bg-slate-950 dark:hover:bg-slate-800 bg-blue-50 hover:bg-blue-100 w-full p-2 rounded-2xl border justify-center'> <HiOutlineLogout className='text-2xl group-hover:-translate-x-[2px] transition-all delay-100 ease-in-out' /> Logout
                   </button>
                 </ul>
               </div>

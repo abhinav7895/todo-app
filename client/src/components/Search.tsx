@@ -16,7 +16,7 @@ const Search = ({ handleShowSearchMenu }: { handleShowSearchMenu: () => void }) 
     inputRef.current?.focus();
   }, []);
   return (
-    <div onClick={closeSearchMenu} ref={menuRef} className='absolute mx-auto z-50 top-0 left-0 right-0 bottom-0 w-full bg-black bg-opacity-40 flex justify-center  items-center'>
+    <div onClick={closeSearchMenu} ref={menuRef} className='absolute mx-auto z-50 top-0 left-0 right-0 bottom-0 w-full bg-black bg-opacity-40 backdrop-blur-sm flex justify-center  items-center'>
       <div className='mx-auto w-full max-w-[500px]  max-h-[400px] dark:bg-slate-900 bg-white border border-gray-400 rounded-xl overflow-hidden overflow-y-scroll shadow-2xl relative scroll-smooth'>
 
         <div className="sticky right-0 top-0 left-0">
