@@ -1,33 +1,27 @@
-import React, { useState } from 'react'
-import { todos } from '../../utils/data'
-import { Todo } from '../../../types'
+import React, { useEffect, useRef, useState } from 'react'
+import { Todo, TodoData } from '../../../types'
 import TodosList from '../../components/TodosList';
-
-
-
-
+import useFetchTodoData from '../../hooks/useFetchTodoData';
+import { useSelector } from 'react-redux';
 
 const Home = () => {
-  const [todosData, setTodosData] = useState<Todo[]>(todos);
-  const handleTodos = (index: number, subTodoIndex: number) => {
-    console.log(index, subTodoIndex);
+  useFetchTodoData();
+  const status = useRef(true);
+  
+  const {todos} = useSelector((store : any) => store.todos);
 
-    setTodosData((prev) => {
-      const updateTodos = [...prev];
-      updateTodos[index].subTodos[subTodoIndex].isCompleted = !updateTodos[index].subTodos[subTodoIndex].isCompleted;
-      return updateTodos;
-    })
+  if (!todos) {
+    return <h1>Loading...</h1>
   }
 
   return (
-    <section className='w-full dark:bg-slate-950 bg-white'>
+    <section className=''>
       <div className='container'>
         <div className='flex flex-wrap p-10 justify-center gap-4 '>
           {
-            todosData.map((todo: Todo, todoIndex) => {
-              let status = true;
+            todos.map((todo: TodoData) => {
               return (
-                <TodosList handleTodos={handleTodos} todo={todo} todoIndex={todoIndex} status={status} />
+                <TodosList key={todo._id} todo={todo} status={status.current} />
               )
             })
           }

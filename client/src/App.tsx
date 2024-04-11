@@ -1,6 +1,9 @@
 import { lazy, Suspense } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Loader from "./components/Loader";
+import { Provider } from "react-redux";
+import store from "./lib/redux/store";
+import useFetchTodoData from "./hooks/useFetchTodoData";
 const Home = lazy(() => import("./root/pages/Home"));
 const NotFound = lazy(() => import("./root/pages/NotFound"));
 const AppLayout = lazy(() => import("./root/AppLayout"));
@@ -15,39 +18,42 @@ const appRouter = createBrowserRouter([
     element: <AppLayout />,
     children: [
       {
-        path : "/",
-        element : <Home />
+        path: "/",
+        element: <Home />
       },
       {
-        path : "/profile",
-        element : <Profile />
+        path: "/profile",
+        element: <Profile />
       },
     ]
   },
   {
-    element : <AuthLayout />,
-    children : [
+    element: <AuthLayout />,
+    children: [
       {
-        path : "/sign-in",
-        element : <Signin />
+        path: "/sign-in",
+        element: <Signin />
       },
       {
-        path : "/sign-up",
-        element : <Signup />
+        path: "/sign-up",
+        element: <Signup />
       }
     ]
   }, {
-    path : "*", 
-    element : <NotFound />
+    path: "*",
+    element: <NotFound />
   }
 ])
 
 const App = () => {
+
   return (
-    <main className="">
-      <Suspense fallback={<Loader/>}>
-        <RouterProvider router={appRouter} />
-      </Suspense>
+    <main >
+      <Provider store={store}>
+        <Suspense fallback={<Loader />}>
+          <RouterProvider router={appRouter} />
+        </Suspense>
+      </Provider>
     </main>
   )
 }
