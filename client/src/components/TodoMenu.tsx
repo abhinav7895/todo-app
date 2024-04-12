@@ -8,6 +8,9 @@ import { SubTodoData } from '../../types';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import { TodosState, addTodo, deleteSubtodo, deleteTodo, editTitle, setStatusOfSubtodo } from '../lib/redux/slices/todoSlice';
+import { MdDeleteOutline } from "react-icons/md";
+import { RiCloseCircleFill } from "react-icons/ri";
+
 
 interface TodoMenuProps {
     closeMenu: () => void,
@@ -18,6 +21,7 @@ const TodoMenu = ({ closeMenu, id }: TodoMenuProps) => {
     const todoMenuRef = useRef<HTMLDivElement>(null);
     const todoText = useRef<HTMLInputElement>(null);
     const dispatch = useDispatch();
+    const status = useRef(true);
     const [showMoreOptions, setShowMoreOptions] = useState(false);
     const { todos } = useSelector((store: { todos: TodosState }) => store.todos);
     const { subTodos } = useSelector((store: { todos: TodosState }) => store.todos);
@@ -28,7 +32,7 @@ const TodoMenu = ({ closeMenu, id }: TodoMenuProps) => {
         setShowMoreOptions((prev) => !prev);
     }
 
-    const closeTodoMenu = (e : any) => {
+    const closeTodoMenu = (e: any) => {
         if (todoMenuRef && e.target === todoMenuRef.current) {
             closeMenu();
         }
@@ -63,15 +67,14 @@ const TodoMenu = ({ closeMenu, id }: TodoMenuProps) => {
 
 
     return (
-        <div onClick={(e) => closeTodoMenu(e)} ref={todoMenuRef} className='absolute mx-auto z-50 top-0 left-0 right-0 bottom-0 w-full bg-black bg-opacity-40 backdrop-blur-sm flex justify-center  items-center'>
-            <div className='mx-auto w-full min-h-[300px] max-w-[500px]  dark:bg-slate-900  bg-white border border-gray-400 rounded-xl   shadow-2xl relative scroll-smooth'>
-
-                <div className="sticky right-0 top-0 left-0">
+        <div onClick={(e) => closeTodoMenu(e)} ref={todoMenuRef} className='absolute mx-auto z-50 top-0 left-0 right-0 bottom-0 w-full h-screen bg-black bg-opacity-40 backdrop-blur-sm flex justify-center  items-center'>
+            <div className='mx-auto w-full  max-h-[400px] max-w-[500px]  dark:bg-slate-900  bg-white border border-gray-400 rounded-xl grid grid-rows-3   shadow-2xl relative scroll-smooth' style={{ gridTemplateRows: '1fr 3fr 1fr' }}>
+                <div className="">
                     <button className="absolute top-[10px] dark:text-gray-300 text-gray-600 left-3 text-xl"> <MdAddTask /> </button>
                     <input ref={todoText} type="text" placeholder='Add Todo' className='py-2  px-10  outline-none border-b border-b-gray-400 dark:text-gray-200 text-gray-700  placeholder:font-light bg-white dark:bg-slate-700  rounded-tl-xl rounded-tr-xl w-full ' />
                     <button onClick={handleAddTodo} className="absolute top-[7px] dark:text-gray-300 bg-blue-600 rounded-md text-gray-600 right-3 border px-2"> Add </button>
                 </div>
-                <div className='p-4  flex max-h-[600px] overflow-y-scroll flex-col'>
+                <div className='px-4 rounded-2xl  flex max-h-[600px] overflow-y-scroll flex-col'>
                     <div className='flex items-center gap-2'>
                         {
                             <input placeholder='Todo title😊' className='dark:text-white w-full  text-3xl outline-none  bg-transparent' type="text" onChange={handleTodoTitle} value={todo?.title} />
@@ -81,7 +84,9 @@ const TodoMenu = ({ closeMenu, id }: TodoMenuProps) => {
 
                         {
                             subTodos.map((subTodo: SubTodoData) => {
-
+                                if (!subTodo.isCompleted && status.current) {
+                                    status.current = false;
+                                }
                                 if (subTodo.todo === id) {
                                     return <li key={uuidv4()}>
                                         <div className="flex items-center mb-4 justify-between group border-t dark:border-t-gray-400 pt-3">
@@ -103,29 +108,24 @@ const TodoMenu = ({ closeMenu, id }: TodoMenuProps) => {
                     <div className='flex flex-col gap-1 justify-start'>
                         <p>
                             {
-                                status ? <span className='flex items-center gap-1'> <IoCheckmarkDoneCircle className='text-base text-green-600' /> Completed</span> : <span className='flex items-center gap-1'><MdOutlinePending className='text-base text-red-400' /> Pending</span>
+                                status.current ? <span className='flex items-center gap-1'> <IoCheckmarkDoneCircle className='text-base text-green-600' /> Completed</span> : <span className='flex items-center gap-1'><MdOutlinePending className='text-base text-red-400' /> Pending</span>
                             } </p>
                         <p className='flex items-center gap-1'>
                             <IoIosCreate className='text-base' /> Created at {todo?.createdAt}
                         </p>
                     </div>
                     <div className='relative'>
-                        <button onClick={handleShowMoreOptions}>
-                            <PiDotsThreeBold className='text-xl dark:text-white' />
-                        </button>
-                        {
-                            showMoreOptions &&
-                            <div className=' absolute  gap-1 flex flex-col bottom-5 right-1 bg-slate-950 p-2 rounded-lg '>
-                                <button onClick={() => handleDeleteTodo(id)} className=' w-full dark:text-gray-300 bg-slate-900 rounded-md text-gray-600  border py-1 px-2'>Delete</button>
-                                <button onClick={closeMenu} className=' w-full dark:text-gray-300 bg-slate-900 rounded-md text-gray-600  border py-1 px-2'>Close</button>
-                            </div>
-                        }
+                        <div className='   gap-2 flex *:text-xl p-2 rounded-lg '>
+                            <button onClick={() => handleDeleteTodo(id)} className=' dark:text-gray-300text-gray-600px'><MdDeleteOutline /></button>
+                            <button onClick={closeMenu} className='dark:text-gray-300text-gray-600px'><RiCloseCircleFill />
+</button>
+                        </div>
                     </div>
                 </div>
-
             </div>
         </div>
     )
 }
 
 export default TodoMenu
+

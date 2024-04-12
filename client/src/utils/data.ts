@@ -180,79 +180,11 @@ export const todos: Todo[] = [
 
 // Fake todos data
 export const todosData = [
-  {
-    _id: "1",
-    title: "Complete project proposal",
-    author: "Abhinav",
-    user_id: "1",
-    subTodos: ["1", "2", "3", "4", "5"],
-    createdAt : "8 April 2024"
-  },
-  { 
-    _id: "5",
-    title: "Prepare for exam",
-    author: "Bob",
-    user_id: "2",
-    subTodos: ["1", "2", "3", "4", "5"],
-    createdAt : "8 April 2024"
-  },
-  {
-    _id: "2",
-    title: "Grocery shopping",
-    author: "Charlie",
-    user_id: "3",
-    subTodos: ["1", "2", "3", "4", "5"],
-    createdAt : "8 April 2024"
-  },
-  {
-    _id: "3",
-    title: "Grocery shopping",
-    author: "Charlie",
-    user_id: "3",
-    subTodos: ["1", "2", "3", "4", "5"],
-    createdAt : "8 April 2024"
-  },
-  {
-    _id: "4",
-    title: "Grocery shopping",
-    author: "Charlie",
-    user_id: "3",
-    subTodos: ["1", "2", "3", "4", "5"],
-    createdAt : "8 April 2024"
-  },
+  
 ];
 
 export const subTodosData = [
-  {
-    _id : "1",
-    todoName : "Buy Apple",
-    isCompleted : false,
-    todo : "1"
-  },
-  {
-    _id : "2",
-    todoName : "Buy Apple",
-    isCompleted : false,
-    todo : "2"
-  },
-  {
-    _id : "3",
-    todoName : "Buy Apple",
-    isCompleted : false,
-    todo : "3"
-  },
-  {
-    _id : "4",
-    todoName : "Buy Apple",
-    isCompleted : false,
-    todo : "4"
-  },
-  {
-    _id : "5",
-    todoName : "Buy Apple",
-    isCompleted : false,
-    todo : "1"
-  },
+  
 ]
 
 console.log("Todos:", todos);

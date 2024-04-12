@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { SubTodoData, TodoData } from "../../../../types";
 import { v4 as uuidv4 } from "uuid";
+import { getCurrentDate } from "../../../utils/helper";
 
 export interface TodosState {
   todos: TodoData[];
@@ -46,6 +47,19 @@ const todoSlice = createSlice({
           ...state.subTodos.slice(idx + 1),
         ],
       };
+    },
+    addNewTodo : (state, action) => {
+      const id = action.payload;
+      const newTodo:TodoData = {
+        _id : id,
+        title : "",
+        author : "Abhinav Yadav",
+        subTodos : [],
+        user_id : "1",
+        createdAt : getCurrentDate()
+      }
+
+      state.todos.push(newTodo);
     },
     editTitle: (
       state,
@@ -97,7 +111,6 @@ const todoSlice = createSlice({
         return state;
       }
     },
-
     addTodo: (
       state,
       action: PayloadAction<{ id: string; todoName: string }>
@@ -195,7 +208,7 @@ export const {
   addTodo,
   deleteTodo,
   deleteSubtodo,
-  editSubTodoName
+  editSubTodoName, addNewTodo
 } = todoSlice.actions;
 
 export default todoSlice.reducer;
