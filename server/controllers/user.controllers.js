@@ -1,0 +1,91 @@
+import { User } from "../models/user.model.js";
+import ApiError from "../utils/ApiError.js";
+import ApiResponse from "../utils/ApiResponse.js";
+
+
+export const registerUser = async (req, res) => {
+    try {
+        const { fullName, email, password } = req.body;
+
+        const user = await User.create({
+            fullName: fullName,
+            email: email,
+            password: password
+        });
+
+        const apiResponse = new ApiResponse(
+            201, {
+            _id: user._id,
+            fullName: user.fullName,
+            email: user.email
+        },
+            "User created successfully"
+        );
+
+        const accessToken = user.generateAccessToken();
+
+        res.cookie("accessToken", accessToken, {
+            secure: true,
+            httpOnly: true,
+            expires: new Date(Date.now() + 1 * 1000)
+        });
+
+        return res.status(apiResponse.statusCode).json(apiResponse);
+    } catch (error) {
+        console.log(error);
+        const apiError = new ApiError(500, "Failed to register user", [error.message]);
+        return res.status(apiError.statusCode).json({
+            error: {
+                ...apiError,
+                message: apiError.message
+            }
+        });
+    }
+}
+
+
+export const signinUser = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            const apiError = new ApiError(404, "User not found");
+            return res.status(apiError.statusCode).json({
+                error: {
+                    ...apiError,
+                    message: apiError.message
+                }
+            });
+        }
+
+        const isCorrect = await user.isPasswordCorrect(password);
+
+        if (!isCorrect) {
+            const apiError = new ApiError(401, "Incorrect password");
+            return res.status(apiError.statusCode).json({
+                error: {
+                    ...apiError,
+                    message: apiError.message
+                }
+            });
+        }
+
+        const apiResponse = new ApiResponse(200, {
+            _id: user._id,
+            fullName: user.fullName,
+            email: user.email
+        });
+        const accessToken = user.generateAccessToken();
+        res.cookie("accessToken", accessToken, {
+            secure: true,
+            httpOnly: true,
+            expires: new Date(Date.now() + 1 * 1000)
+        });
+        return res.status(apiResponse.statusCode).json(apiResponse);
+    } catch (error) {
+        console.error(error);
+        const apiError = new ApiError(500, "Internal server error", [error.message]);
+        return res.status(apiError.statusCode).json({ error: apiError });
+    }
+}
