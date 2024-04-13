@@ -89,3 +89,15 @@ export const signinUser = async (req, res) => {
         return res.status(apiError.statusCode).json({ error: apiError });
     }
 }
+
+export const signOutUser = (req, res) => {
+    try {
+        const expiryDate = new Date('2000-01-01T00:00:00');
+        res.cookie("accessToken", "", { expires: expiryDate, httpOnly: true, secure: true });
+        const apiResponse = new ApiResponse(200, { message: "User signed out successfully" });
+        return res.status(apiResponse.statusCode).json(apiResponse);
+    } catch (error) {
+        const apiError = new ApiError(500, "Failed to sign out user");
+        return res.status(apiError.statusCode).json({ error: apiError });
+    }
+}
