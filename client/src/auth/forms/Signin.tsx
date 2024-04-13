@@ -22,7 +22,7 @@ const Signin = () => {
       <h1 className="text-xl font-light leading-tight text-gray-900 md:text-2xl  dark:text-white tracking-wide">
         Sign in to your account
       </h1>
-      <form onSubmit={handleSubmit} action="" className=' flex flex-col gap-3 mt-6'>
+      <form  method='post' action="http://localhost:8000/api/users/signin" className=' flex flex-col gap-3 mt-6'>
 
         <div className='flex flex-col gap-1'>
           <label className='text-gray-700 dark:text-gray-300' htmlFor="">Email</label>

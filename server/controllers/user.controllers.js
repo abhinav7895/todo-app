@@ -4,6 +4,7 @@ import ApiResponse from "../utils/ApiResponse.js";
 
 
 export const registerUser = async (req, res) => {
+    console.log("Hello");
     try {
         const { fullName, email, password } = req.body;
 
@@ -25,9 +26,9 @@ export const registerUser = async (req, res) => {
         const accessToken = user.generateAccessToken();
 
         res.cookie("accessToken", accessToken, {
-            secure: true,
+            secure: false, // false for development
             httpOnly: true,
-            expires: new Date(Date.now() + 1 * 1000)
+            expires: new Date(Date.now() + 24 * 60 * 60 * 1000)
         });
 
         return res.status(apiResponse.statusCode).json(apiResponse);
@@ -77,10 +78,11 @@ export const signinUser = async (req, res) => {
             email: user.email
         });
         const accessToken = user.generateAccessToken();
+        console.log(accessToken);
         res.cookie("accessToken", accessToken, {
-            secure: true,
+            secure: false, // Set to false for development over HTTP
             httpOnly: true,
-            expires: new Date(Date.now() + 1 * 1000)
+            expires: new Date(Date.now() + 24 * 60 * 60 * 1000) // 1 day expiration
         });
         return res.status(apiResponse.statusCode).json(apiResponse);
     } catch (error) {
@@ -93,9 +95,9 @@ export const signinUser = async (req, res) => {
 export const signOutUser = (req, res) => {
     try {
         const expiryDate = new Date('2000-01-01T00:00:00');
-        res.cookie("accessToken", "", { expires: expiryDate, httpOnly: true, secure: true });
+        res.cookie("accessToken", "", { expires: expiryDate});
         const apiResponse = new ApiResponse(200, { message: "User signed out successfully" });
-        return res.status(apiResponse.statusCode).json(apiResponse);
+        return res.status(apiResponse.statusCode).json(apiResponse)
     } catch (error) {
         const apiError = new ApiError(500, "Failed to sign out user");
         return res.status(apiError.statusCode).json({ error: apiError });

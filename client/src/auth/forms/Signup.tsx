@@ -4,7 +4,6 @@ import useInputValidation from '../../hooks/useInputValidation';
 import useStrongPassword from '../../hooks/useStrongPassword';
 import { emailValidation } from '../../utils/validators';
 
-
 const Signup = () => {
   const name = useInputValidation("");
   const email = useInputValidation("", emailValidation);
@@ -19,10 +18,10 @@ const Signup = () => {
       <h1 className="text-xl font-light leading-tight text-gray-900 md:text-2xl  dark:text-white tracking-wide">
         Get Started
       </h1>
-      <form action="" className=' flex flex-col gap-3 mt-6'>
+      <form action="http://localhost:8000/api/users/register" method='post' className=' flex flex-col gap-3 mt-6'>
         <div className='flex flex-col gap-1'>
           <label className='text-gray-700 dark:text-gray-300' htmlFor="">Name</label>
-          <input className='border px-2 py-1 text-lg focus:outline-dotted outline-blue-800 outline-2 border-gray-800 rounded dark:bg-slate-800 dark:border-gray-400 placeholder:text-gray-500 dark:text-gray-200 dark:outline-gray-100' type="text" name="password" id="" placeholder='John Modi' value={name.value} onChange={name.changeHandler}/>
+          <input className='border px-2 py-1 text-lg focus:outline-dotted outline-blue-800 outline-2 border-gray-800 rounded dark:bg-slate-800 dark:border-gray-400 placeholder:text-gray-500 dark:text-gray-200 dark:outline-gray-100' type="text" name="fullName" id="" placeholder='John Modi' value={name.value} onChange={name.changeHandler}/>
         </div>
         <div className='flex flex-col gap-1'>
           <label className='text-gray-700 dark:text-gray-300' htmlFor="">Email</label>

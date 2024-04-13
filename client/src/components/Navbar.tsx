@@ -40,6 +40,22 @@ const Navbar = () => {
     setShowMobileNavMenu((prev) => !prev);
   }
 
+  const handleLogout = async () => {
+    try {
+      const res = await fetch("http://localhost:8000/api/users/signout", {
+        method : "GET",
+        credentials : "include",
+        
+      });
+      if (res.ok) {
+        navigate("/sign-in");
+      }
+      
+    } catch (error) {
+      
+    }
+  }
+
   return (
     <nav className='w-full dark:bg-slate-900 bg-white border-b border-b-gray-400 h-[60px] ' >
       <div className='container h-full my-auto flex items-center justify-between px-5'>
@@ -66,7 +82,7 @@ const Navbar = () => {
                   <ul className='flex rounded-lg   dark:*:text-white *:text-black items-start flex-col p-3 gap-2 '>
                     <Link className='flex items-center gap-1 text-xl group dark:bg-slate-950 dark:hover:bg-slate-800  bg-blue-50  hover:bg-blue-100 w-full p-2 rounded-2xl border justify-center' to="/profile"> <CgProfile className='text-2xl group-hover:-translate-x-[2px] transition-all delay-100 ease-in-out' /> Profile</Link>
                     <button className='flex items-center gap-1 text-xl group dark:bg-slate-950 dark:hover:bg-slate-800 bg-blue-50 hover:bg-blue-100 w-full p-2 rounded-2xl border justify-center'> <MdOutlineDarkMode className='text-2xl group-hover:-translate-x-[2px] transition-all delay-100 ease-in-out' /> Theme</button>
-                    <button className='flex items-center gap-1 text-xl group dark:bg-slate-950 dark:hover:bg-slate-800 bg-blue-50 hover:bg-blue-100 w-full p-2 rounded-2xl border justify-center'> <HiOutlineLogout className='text-2xl group-hover:-translate-x-[2px] transition-all delay-100 ease-in-out' /> Logout
+                    <button onClick={handleLogout} className='flex items-center gap-1 text-xl group dark:bg-slate-950 dark:hover:bg-slate-800 bg-blue-50 hover:bg-blue-100 w-full p-2 rounded-2xl border justify-center'> <HiOutlineLogout className='text-2xl group-hover:-translate-x-[2px] transition-all delay-100 ease-in-out' /> Logout
                     </button>
                   </ul>
                 </div>
