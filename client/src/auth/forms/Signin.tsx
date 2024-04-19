@@ -1,12 +1,12 @@
-import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { IoIosArrowRoundForward } from "react-icons/io";
 import useInputValidation from '../../hooks/useInputValidation';
 import useStrongPassword from '../../hooks/useStrongPassword';
 import { FormEvent, useState } from 'react';
 import { emailValidation } from '../../utils/validators';
 import { TbLoader } from "react-icons/tb";
-import { useDispatch, useSelector } from 'react-redux';
-import { UserState, setUser } from '../../lib/redux/slices/userSlice';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../lib/redux/slices/userSlice';
 import { setUserToLocalStorage } from '../../utils/helper';
 
 

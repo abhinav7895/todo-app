@@ -186,5 +186,3 @@ export const todosData = [
 export const subTodosData = [
   
 ]
-
-console.log("Todos:", todos);
