@@ -22,6 +22,10 @@ const isValidEmail = (email: string) => {
   const emailRegex = /\S+@\S+\.\S+/;
   return emailRegex.test(email);
 };
+const isValidName = (email: string) => {
+  const nameRegex = /^[a-zA-Z\s-]+$/
+  return nameRegex.test(email);
+};
 
 const emailValidation = (value : string) => {
   if (!isValidEmail(value)) {
@@ -32,10 +36,20 @@ const emailValidation = (value : string) => {
   }
 }
 
+const nameValidation = (value : string) => {
+  if (!isValidName(value)) {
+    return {
+      isValid : false,
+      errorMessage : "Name must only contain alphabets, spaces, or hyphens"
+    }
+  }
+}
+
 export {
   isIncludeNumber,
   isIncludeSpecialChar,
   isIncludeCapitalLetter,
   isIncludeLowercaseLetter,
   emailValidation,
+  nameValidation
 };

@@ -34,3 +34,9 @@ export interface User {
   fullName : string,
   email : string
 }
+
+export interface ErrorInterface {
+  isLetterError: boolean;
+  isCharactersError: boolean;
+  isNumAndSpecialCharError: boolean;
+}
