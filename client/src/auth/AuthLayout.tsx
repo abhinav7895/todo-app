@@ -1,7 +1,13 @@
-import { Outlet } from 'react-router-dom'
+
+import { Navigate, Outlet } from 'react-router-dom'
+import useUserAuthenticated from '../hooks/useUserAuthenticated';
 
 const AuthLayout = () => {
+  const isAuthenticated = useUserAuthenticated();
 
+  if (isAuthenticated) {
+    return <Navigate to={"/"} />
+  }
   return (
     <section className='dark:bg-slate-900 bg-white px-4'>
       <div className='flex justify-center w-full max-w-4xl  mx-auto h-screen items-center  gap-3'>

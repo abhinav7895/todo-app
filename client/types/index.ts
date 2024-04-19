@@ -27,3 +27,10 @@ export interface SubTodoData {
   isCompleted: boolean;
   todo: string;
 }
+
+
+export interface User {
+  _id : string, 
+  fullName : string,
+  email : string
+}

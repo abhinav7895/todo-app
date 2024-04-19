@@ -1,12 +1,12 @@
 import { Router } from "express";
 const router = Router();
 import { registerUser, signOutUser, signinUser } from "../controllers/user.controllers.js";
-
+import { verifyJwt } from "../middlewares/verifyJWT.js";
 
 router
     .post("/register", registerUser)
     .post("/signin", signinUser)
-    .get("/signout", signOutUser)
+    .post("/signout",verifyJwt, signOutUser)
 
 
 export default router;

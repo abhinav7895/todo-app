@@ -42,12 +42,13 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      const res = await fetch("http://localhost:8000/api/users/signout", {
-        method : "GET",
+      const res = await fetch("http://localhost:8000/api/v1/users/signout", {
+        method : "POST",
         credentials : "include",
-        
       });
+
       if (res.ok) {
+        localStorage.removeItem("user");
         navigate("/sign-in");
       }
       

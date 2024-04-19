@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Loader from "./components/Loader";
 import { Provider } from "react-redux";
@@ -46,6 +46,8 @@ const appRouter = createBrowserRouter([
 ])
 
 const App = () => {
+
+  
 
   return (
     <main >

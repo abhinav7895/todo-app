@@ -1,7 +1,6 @@
 import { config } from "dotenv";
 import { connectDB } from "./db/index.js";
 import app from "./app.js";
-import UserRouter from "./routes/user.routes.js"
 config();
 connectDB()
    .then(() => {
@@ -16,4 +15,3 @@ connectDB()
       process.exit(1);
    })
 
-app.use("/api/users", UserRouter);
