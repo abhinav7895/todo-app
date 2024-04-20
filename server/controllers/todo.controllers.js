@@ -3,8 +3,6 @@ import ApiError from "../utils/ApiError.js";
 import ApiResponse from "../utils/ApiResponse.js";
 import Todo from "../models/todo.model.js";
 
-
-
 const createTodo = asyncHandler(async (req, res) => {
     const { title } = req.body;
 
@@ -36,8 +34,8 @@ const getTodos = asyncHandler(async (req, res) => {
 })
 
 const editTodo = asyncHandler(async (req, res) => {
-    console.log(req.body);
-    const { title, todoId} = req.body;
+    const todoId = req.params.todoId;
+    const { title } = req.body;
 
     if (!todoId || !title || title.length < 1) {
         throw new ApiError(400, "Invalid request data");
@@ -49,11 +47,11 @@ const editTodo = asyncHandler(async (req, res) => {
         throw new ApiError(404, "Todo not found");
     }
 
-    return res.status(200).json({ data: todo, message: "Todo updated successfully" });
+    return res.status(200).json(new ApiResponse(200, data, "Todo updated successfully"));
 });
 
 const deleteTodo = asyncHandler(async (req, res) => {
-    const { todoId } = req.body;
+    const todoId = req.params.todoId;
 
     if (!todoId) {
         throw new ApiError(400, "Todo ID is required");
@@ -67,15 +65,5 @@ const deleteTodo = asyncHandler(async (req, res) => {
 
     return res.status(200).json(new ApiResponse(200, todo, "Todo deleted successfully"));
 });
-
-
-
-/**
- * User can do several things : 
- * + user can create the todo
- * + get the todo which the user created
- * + user can edit the todo title
- * + user can delete the todo
- */
 
 export { createTodo, getTodos, editTodo, deleteTodo };

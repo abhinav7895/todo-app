@@ -5,8 +5,8 @@ const router = Router();
 
 router.post("/createTodo", verifyJwt, createTodo);
 router.get("/todos", verifyJwt, getTodos);
-router.patch("/editTodo", verifyJwt, editTodo);
-router.delete("/deleteTodo", verifyJwt, deleteTodo);
+router.put("/editTodo/:todoID", verifyJwt, editTodo);
+router.delete("/deleteTodo/todoID", verifyJwt, deleteTodo);
 
 
 export default router;
