@@ -5,7 +5,7 @@ import Task from "../models/todoTask.model.js";
 
 
 const createTask = asyncHandler(async (req, res) => {
-    const todoId = req.params.todoID
+    const todoId = req.params.todoId
     const { taskName } = req.body;
 
     if (!taskName || !todoId || taskName.length < 1) {
@@ -22,11 +22,11 @@ const createTask = asyncHandler(async (req, res) => {
         throw new ApiError(500, "Failed to create task");
     }
 
-    return res.status(201).json(new ApiResponse(201, todo, "Task created successfully"));
+    return res.status(201).json(new ApiResponse(201, task, "Task created successfully"));
 });
 
 const getAllTask = asyncHandler(async (req, res) => {
-    const todoID = req.params.todoID;
+    const todoId = req.params.todoId;
 
     if (!todoId) {
         throw new ApiError(400, "Todo ID is required");
@@ -64,7 +64,7 @@ const updateTask = asyncHandler(async (req, res) => {
         updatedTask.isCompleted = isCompleted;
     }
 
-    const task = await Task.findOneAndUpdate({todo : todoId}, updateTask, { new: true });
+    const task = await Task.findByIdAndUpdate(taskId, updatedTask, { new: true });
 
     if (!task) {
         throw new ApiError(404, "Task not found");
