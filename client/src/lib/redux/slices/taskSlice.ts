@@ -2,22 +2,41 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { ITaskData, ITodoData } from "../../../../types";
 
 export interface TodosState {
-  todoData: ITodoData[]
+  taskData: { todoId: string; taskData: ITaskData[] }[];
 }
 
 const initialState: TodosState = {
-  todoData: [],
+  taskData: [],
 };
 
-const todoSlice = createSlice({
-  name: "todoData",
+const taskSlice = createSlice({
+  name: "taskData",
   initialState: initialState,
   reducers: {
-    setTodo: (state, action: PayloadAction<ITodoData[]>) => {
-      console.log(action.payload);
-      state.todoData = action.payload;
-    },
+    setTask: (
+      state,
+      action: PayloadAction<{ todoId: string; taskData: ITaskData[] }>
+    ) => {
+      const { todoId, taskData } = action.payload;
 
+      // Find the index of the todo item in taskData array
+      const index = state.taskData.findIndex((item) => item.todoId === todoId);
+
+      // If todo item is found, update its taskData. If not found, add a new item.
+      const updatedTaskData =
+        index !== -1
+          ? [
+              ...state.taskData.slice(0, index),
+              { todoId, taskData },
+              ...state.taskData.slice(index + 1),
+            ]
+          : [...state.taskData, { todoId, taskData }];
+
+      return {
+        ...state,
+        taskData: updatedTaskData,
+      };
+    },
 
     // setStatusOfSubtodo: (state, action) => {
     //   const idx = state.subTodos.findIndex(
@@ -193,9 +212,9 @@ const todoSlice = createSlice({
   },
 });
 
-export const { setTodo } = todoSlice.actions;
+export const { setTask } = taskSlice.actions;
 
-export default todoSlice.reducer;
+export default taskSlice.reducer;
 
 /**
  * All possible Reducers :

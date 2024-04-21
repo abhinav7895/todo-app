@@ -24,10 +24,10 @@ const Signin = () => {
     try {
       e.preventDefault();
       setLoader(true)
-      if (email.error || !(password.error?.isCharactersError || password.error?.isLetterError || password.error?.isNumAndSpecialCharError)) {
-        setLoader(false)
-        return;
-      };
+      // if (email.error || !(password.error?.isCharactersError || password.error?.isLetterError || password.error?.isNumAndSpecialCharError)) {
+      //   setLoader(false)        
+      //   return;
+      // };
 
       const formData = new FormData(e.target as HTMLFormElement);
       const data = { email: formData.get("email"), password: formData.get("password") };
@@ -46,13 +46,14 @@ const Signin = () => {
         return;
       };
       const responseData = await response.json();
+      console.log(responseData);
+      
       dispatch(setUser(responseData.data));
       setUserToLocalStorage(responseData.data);
       setLoader(false);
       navigate("/");
     } catch (error) {
       console.log(error);
-
     }
   }
 

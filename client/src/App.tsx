@@ -3,7 +3,6 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Loader from "./components/Loader";
 import { Provider } from "react-redux";
 import store from "./lib/redux/store";
-import useFetchTodoData from "./hooks/useFetchTodoData";
 const Home = lazy(() => import("./root/pages/Home"));
 const NotFound = lazy(() => import("./root/pages/NotFound"));
 const AppLayout = lazy(() => import("./root/AppLayout"));

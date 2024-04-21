@@ -27,14 +27,14 @@ const createTask = asyncHandler(async (req, res) => {
 
 const getAllTask = asyncHandler(async (req, res) => {
     const todoId = req.params.todoId;
-
+    console.log(todoId);
     if (!todoId) {
         throw new ApiError(400, "Todo ID is required");
     }
 
     const allTasks = await Task.find({ todo: todoId });
 
-    if (!allTasks || allTasks.length === 0) {
+    if (!allTasks) {
         throw new ApiError(404, "No tasks found for the given todo");
     }
 

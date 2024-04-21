@@ -47,6 +47,8 @@ const Signup = () => {
       };
 
       const responseData = await response.json();
+      console.log(responseData);
+      
       dispatch(setUser(responseData.data));
       setUserToLocalStorage(responseData.data);
       setLoader(false);

@@ -24,7 +24,7 @@ const createTodo = asyncHandler(async (req, res) => {
 
 const getTodos = asyncHandler(async (req, res) => {
     const user = req.user;
-    const todos = await Todo.find({ user: user._id });
+    const todos = await Todo.find({ user: user._id }).select("-__v -user");
 
     if (!todos) {
         throw new ApiError(500, "Failed to fetch todos");

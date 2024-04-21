@@ -1,31 +1,17 @@
 // todo
-export interface Todo {
-  todoID: string;
-  createdAt: string;
-  title: string;
-  subTodos: SubTodo[];
-}
 
-export interface SubTodo {
-  title: string;
+export interface ITaskData {
+  taskName: string;
   createdAt: string;
   isCompleted: boolean;
+  todo : string
 }
 
-export interface TodoData {
+export interface ITodoData {
   _id: string;
-  title: string;
-  author: string;
-  user_id: string;
-  subTodos: string[];
-  createdAt: string;
-}
-
-export interface SubTodoData {
-  _id: string;
-  todoName: string;
-  isCompleted: boolean;
-  todo: string;
+  createdAt : string,
+  updatedAt : string,
+  title : string
 }
 
 

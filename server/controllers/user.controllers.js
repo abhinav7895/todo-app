@@ -60,12 +60,12 @@ export const signinUser = asyncHandler(
             expires: new Date(Date.now() + 24 * 60 * 60 * 1000) // 1 day expiration
         }
         const accessToken = user.generateAccessToken();
-
-        return res.status(200).cookie("accessToken", accessToken, options).json({
+        console.log(accessToken);
+        return res.status(200).cookie("accessToken", accessToken, options).json(new ApiResponse(200, {
             _id: user._id,
             fullName: user.fullName,
             email: user.email
-        });
+        }, "User signin successfully"));
 
 
     }

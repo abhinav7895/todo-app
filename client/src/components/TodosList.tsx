@@ -1,16 +1,16 @@
-import { SubTodoData, TodoData } from '../../types';
+import { ITodoData } from '../../types';
 import { BiSolidEditAlt } from 'react-icons/bi';
 import { IoCheckmarkDoneCircle } from 'react-icons/io5';
 import { IoIosCreate } from 'react-icons/io';
 import { MdOutlinePending } from 'react-icons/md';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setStatusOfSubtodo } from '../lib/redux/slices/todoSlice';
 import TodoMenu from './TodoMenu';
+import TodoTask from './TodoTask';
 
 type TodosListType = {
-    todo: TodoData;
-    status: boolean;
+    todo: ITodoData;
+    status?: boolean;
 };
 
 const TodosList = ({ todo, status }: TodosListType) => {
@@ -21,7 +21,7 @@ const TodosList = ({ todo, status }: TodosListType) => {
         setShowTodo((prev) => !prev);
     }
     const handleSubtodo = (id: string) => {
-        dispatch(setStatusOfSubtodo(id));
+        // dispatch(setStatusOfSubtodo(id));
     }
 
     return (
@@ -33,8 +33,8 @@ const TodosList = ({ todo, status }: TodosListType) => {
                         <button><BiSolidEditAlt className='hidden group-hover:block' /></button>
                     </div>
                     <ul className='mt-2'>
-
-                        {
+                        <TodoTask todoId={todo._id} />
+                        {/* {
                             subTodos.map((subTodo: SubTodoData) => {
                                 if (status && !subTodo.isCompleted) {
                                     status = false;
@@ -48,7 +48,7 @@ const TodosList = ({ todo, status }: TodosListType) => {
                                     </li>
                                 }
                             })
-                        }
+                        } */}
 
                     </ul>
                 </div>
@@ -64,9 +64,9 @@ const TodosList = ({ todo, status }: TodosListType) => {
                 </div>
             </div>
 
-            {
+            {/* {
                 showTodo && <TodoMenu id={todo._id} closeMenu={handleShowTodo} />
-            }
+            } */}
         </>
     )
 }
